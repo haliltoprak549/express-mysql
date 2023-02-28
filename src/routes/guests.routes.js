@@ -1,5 +1,5 @@
 import express from 'express'
-import { getGuests, addGuest, getSingleGuest, deleteGuest, updateGuest } from '../controllers/guests.controller.js'
+import { getGuests, addGuest, getGuestByID, deleteGuest, updateGuest } from '../controllers/guests.controller.js'
 
 const guestsRouter = express.Router()
 
@@ -11,7 +11,7 @@ guestsRouter
 
 guestsRouter
     .route('/:id') // ROUTE: http://localhost/guests/:id
-    .get(getSingleGuest) // ROUTE: GET Single guest with ID
+    .get(getGuestByID) // ROUTE: GET Single guest with ID
     .put(updateGuest) // ROUTE: UPDATE guest
     .delete(deleteGuest) // ROUTE: DELETE guest with ID
 

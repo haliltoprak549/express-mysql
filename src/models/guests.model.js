@@ -16,6 +16,7 @@ export class Guest {
     this.description = guest.description
   }
 
+  // returns all guests
   static getGuests = (req, res, next) => {
     let query = "SELECT * FROM guests;"
 
@@ -25,42 +26,62 @@ export class Guest {
     })
   }
 
-  static getSingleGuest = (guest_id, req, res, next) => {
+  // returns the guest with the given id
+  static getGuestByID = (guest_id, req, res, next) => {
     let query = "SELECT * FROM guests WHERE guest_id = ?"
 
     conn.query(query, guest_id, (err, rows) => {
       if (err) next(err)
-      else res.send(rows)
+      else res.send(rows[0])
     })
   }
 
+  // inserts a guest with the given parameters, returns the inserted guest
   addGuest = (req, res, next) => {
     let query = "INSERT INTO guests SET ?"
 
     conn.query(query, this, (err) => {
       if (err) next(err)
-      else res.send(this)
+    })
+
+    let query2 = 'SELECT * FROM guests WHERE guest_id = LAST_INSERT_ID();'
+
+    conn.query(query2, (err, rows) => {
+      if (err) next(err)
+      else res.send(rows[0])
     })
   }
 
+  // deletes the guest with the given guest_id, returns the deleted guest
   static deleteGuest = (guest_id, req, res, next) => {
-    let query = 'DELETE FROM guests WHERE guest_id = ?'
-
-    conn.query(query, guest_id, (err) => {
+    let deletedGuest
+    let query1 = 'SELECT * FROM guests WHERE guest_id = ?'
+    conn.query(query1, guest_id, (err, rows) => {
       if (err) next(err)
-      else res.send(guest_id)
+      else deletedGuest = rows[0]
+    })
+
+    let query2 = 'DELETE FROM guests WHERE guest_id = ?'
+
+    conn.query(query2, guest_id, (err) => {
+      if (err) next(err)
+      else res.send(deletedGuest)
     })
   }
 
+  // updates the guest with the given guest_id, returns the updated guest
   updateGuest = (guest_id, req, res, next) => {
-    let query = `UPDATE guests SET ? WHERE guest_id = ${guest_id}`
-    
-    conn.query(query, this, (err) => {
+    let query = 'UPDATE guests SET ? WHERE guest_id = ?'
+
+    conn.query(query, [this, guest_id], (err) => {
       if (err) next(err)
-      else {
-        console.log(conn)
-        res.send('updated')
-      }
+    })
+
+    let query2 = 'SELECT * FROM guests WHERE guest_id = ?'
+
+    conn.query(query2, guest_id, (err, rows) => {
+      if (err) next(err)
+      else res.send(rows[0])
     })
   }
 }

@@ -38,11 +38,13 @@ export const guestSchema = Joi.object().keys({
         .min(0)
         .max(1)
         .allow(null)
+        .empty(null) // empty the null values and set default value
         .default(1),
     child: Joi.number()
         .min(0)
         .max(1)
         .allow(null)
+        .empty(null)
         .default(0),
     description: Joi.string()
         .max(100)
@@ -63,5 +65,6 @@ export const roomSchema = Joi.object({
         .max(15)
         .required(),
     description: Joi.string()
-        .max(100),
+        .max(100)
+        .allow(null),
 });

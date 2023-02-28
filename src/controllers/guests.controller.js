@@ -39,10 +39,10 @@ export const addGuest = (req, res, next) => {
     }
 }
 
-export const getSingleGuest = (req, res, next) => {
+export const getGuestByID = (req, res, next) => {
     try {
         let { id } = req.params;
-        Guest.getSingleGuest(id, req, res, next)
+        Guest.getGuestByID(id, req, res, next)
     } catch (err) {
         next(err)
     }
@@ -88,7 +88,6 @@ export const updateGuest = (req, res, next) => {
 
             guest.updateGuest(id, req, res, next)
         }
-
     } catch (err) {
         next(err)
     }
