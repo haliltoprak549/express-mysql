@@ -1,4 +1,4 @@
 export const HOST = "localhost";
 export const USER = "root";
-export const PASSWORD = "Hlltprk.0549";
+export const PASSWORD = "";
 export const DB = "hostel";
