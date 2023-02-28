@@ -12,7 +12,7 @@ guestsRouter
 guestsRouter
     .route('/:id') // ROUTE: http://localhost/guests/:id
     .get(getSingleGuest) // ROUTE: GET Single guest with ID
-    .patch(updateGuest) // ROUTE: UPDATE guest
+    .put(updateGuest) // ROUTE: UPDATE guest
     .delete(deleteGuest) // ROUTE: DELETE guest with ID
 
 export default guestsRouter
