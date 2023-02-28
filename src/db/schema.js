@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export const guestSchema = Joi.object({
+export const guestSchema = Joi.object().keys({
     room_id: Joi.number()
         .min(1)
         .required(),
@@ -10,32 +10,43 @@ export const guestSchema = Joi.object({
         .required(),
     tc_no: Joi.string()
         .min(11)
-        .max(11),
+        .max(11)
+        .allow(null),
     origin_city: Joi.string()
         .min(3)
-        .max(50),
+        .max(50)
+        .allow(null),
     duty: Joi.string()
         .min(3)
-        .max(100),
+        .max(100)
+        .allow(null),
     phone: Joi.string()
         .min(10)
-        .max(10),
+        .max(10)
+        .allow(null),
     check_in_date: Joi.date()
+        .iso()
         .min('01-01-2020')
-        .max('01-01-2030'),
+        .max('01-01-2030')
+        .allow(null),
     check_out_date: Joi.date()
+        .iso()
         .min('01-01-2020')
-        .max('01-01-2030'),
+        .max('01-01-2030')
+        .allow(null),
     current: Joi.number()
         .min(0)
         .max(1)
+        .allow(null)
         .default(1),
     child: Joi.number()
         .min(0)
         .max(1)
+        .allow(null)
         .default(0),
     description: Joi.string()
         .max(100)
+        .allow(null)
 });
 
 export const roomSchema = Joi.object({

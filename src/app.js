@@ -21,7 +21,8 @@ app.use(bodyParser.json());
 
 app.use(logger);
 
-app.get('/test', test);
+app.get('/test', (req, res) => { res.send('SLK İBO') })
+app.post('/test', test);
 
 app.get('/', (req, res) => { res.send('Homepage'); })
 app.use('/guests', guestsRouter);
